@@ -27,21 +27,21 @@ import { IoMdClose } from 'react-icons/io';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
+import { toast } from 'react-hot-toast';
 
 interface Props {
 	currentUser?: any;
 }
 
 const CartPage = ({ currentUser }: Props) => {
-	const { data: session } = useSession();
-	console.log(currentUser.email);
 	const dispatch = useDispatch();
 
 	//stripe
-	const stripePromise = loadStripe(process.env.stripe_public_key);
+	const stripePromise = loadStripe(
+		'pk_test_51L4MfvHlBSjc8AQLMuBqZg0AU25udbZy1dOSNnN7KXCU34UDXomB0P9T28dmHtZ2RgPVJi98Tjf1Ac9IIdMXdTSH00p2rkDCyV'
+	);
 
 	const productData = useSelector((state: any) => state.e_shop.productData);
-	const userData = useSelector((state: any) => state.e_shop.usersData);
 
 	const [warningMsg, setWarningMsg] = useState<boolean>(false);
 	//price
@@ -71,19 +71,18 @@ const CartPage = ({ currentUser }: Props) => {
 		const stripe = await stripePromise;
 
 		//create a checkout session
-		const checkoutSession = await axios.post(
-			'/api/create-checkout-session',
-			{
-				products: productData,
-				email: session?.user?.email,
-			}
-		);
+		const checkoutSession = await axios.post('/api/payment', {
+			items: productData,
+			email: currentUser.email,
+		});
 		//redirect to checkout
 		const result = await stripe?.redirectToCheckout({
 			sessionId: checkoutSession.data.id,
 		});
 
-		if (result?.error) alert(result.error.message);
+		if (result?.error) {
+			alert(result?.error.message);
+		}
 	};
 
 	return (

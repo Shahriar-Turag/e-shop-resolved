@@ -21,11 +21,13 @@ interface NavbarProps {
 
 const Navbar = ({ currentUser }: NavbarProps) => {
 	const { data: session } = useSession();
-	console.log('session', session);
+	// console.log('session', session);
 
 	const dispatch = useDispatch();
 
 	const productData = useSelector((state: any) => state.e_shop.productData);
+
+	// console.log('productData', productData);
 
 	const [totalAmount, setTotalAmount] = useState('');
 

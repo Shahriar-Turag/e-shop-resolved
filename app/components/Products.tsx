@@ -46,7 +46,7 @@ const Products = ({ productData, currentUser }: Props) => {
 					<div className='px-2 py-4 flex flex-col justify-center'>
 						<div className='flex justify-between items-center py-2'>
 							<button
-								onClick={() =>
+								onClick={() => {
 									dispatch(
 										addToCart({
 											id: item.id,
@@ -59,11 +59,11 @@ const Products = ({ productData, currentUser }: Props) => {
 											category: item.category,
 											brand: item.brand,
 										})
-									) &&
+									);
 									toast.success(
 										`${item.title} is added to cart`
-									)
-								}
+									);
+								}}
 								className='w-20 h-9 bg-blue text-white rounded-full flex gap-1 items-center justify-center hover:bg-[#004f9a] duration-300'
 							>
 								<span>

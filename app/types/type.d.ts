@@ -34,7 +34,6 @@ export interface StoreProduct {
 	cart: string[];
 	userId: number;
 }
-[];
 
 export interface User {
 	id: string;

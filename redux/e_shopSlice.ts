@@ -8,8 +8,6 @@ interface ProductState {
 	userData: User[];
 }
 
-console.log('e_shopSlice.ts', 'ProductState');
-
 const initialState: ProductState = {
 	productData: [],
 	userData: [],
@@ -21,14 +19,15 @@ export const e_shopSlice = createSlice({
 	reducers: {
 		addToCart: (state, action) => {
 			const item = state.productData.find(
-				(item: StoreProduct) => item.id === action.payload.id
+				(item: StoreProduct) => item.id == action.payload.id
 			);
 
 			if (item) {
 				item.quantity += action.payload.quantity;
 			} else {
-				state.productData.push(action.payload);
+				state.productData = [...state.productData, action.payload];
 			}
+			console.log(state);
 		},
 		plusQuantity: (state, action) => {
 			const item = state.productData.find(
