@@ -10,10 +10,12 @@ import deleteProductById from './actions/deleteProductById';
 import ClientOnly from './components/ClientOnly';
 import Container from './components/Container';
 import CartPage from './components/CartPage';
+import getOrders from './actions/getOrders';
 
 export default async function Home() {
 	const productData: any = await getProducts();
 	const usersData: any = await getUsers();
+	const ordersData: any = await getOrders();
 
 	const currentUser = await getCurrentUser();
 	const userProductData = productData.filter(
@@ -42,6 +44,7 @@ export default async function Home() {
 							usersData={usersData}
 							productData={userProductData}
 							currentUser={currentUser}
+							ordersData={ordersData}
 						/>
 					) : (
 						<Products

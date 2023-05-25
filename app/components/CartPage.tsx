@@ -37,11 +37,10 @@ const CartPage = ({ currentUser }: Props) => {
 	const dispatch = useDispatch();
 
 	//stripe
-	const stripePromise = loadStripe(
-		'pk_test_51L4MfvHlBSjc8AQLMuBqZg0AU25udbZy1dOSNnN7KXCU34UDXomB0P9T28dmHtZ2RgPVJi98Tjf1Ac9IIdMXdTSH00p2rkDCyV'
-	);
+	const stripePromise = loadStripe(process.env.stripe_public_key!);
 
 	const productData = useSelector((state: any) => state.e_shop.productData);
+	console.log(productData);
 
 	const [warningMsg, setWarningMsg] = useState<boolean>(false);
 	//price

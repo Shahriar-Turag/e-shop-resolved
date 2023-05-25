@@ -26,7 +26,7 @@ model User {
 
   accounts Account[]
   products Products[]
-  // reservations Reservation[]
+  orders Orders[]
 
 }
 
@@ -62,7 +62,23 @@ model Products {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+}
+
+model Orders {
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String     @db.ObjectId
+  sessionId     String
+  productIds      String[] 
+  productUserIds String[]
+  paymentStatus String
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 

@@ -7,7 +7,7 @@ export default async function Page() {
 	const currentUser = await getCurrentUser();
 
 	return (
-		<div>
+		<div className='max-w-contentContainer mx-auto'>
 			<CartPage currentUser={currentUser} />
 		</div>
 	);

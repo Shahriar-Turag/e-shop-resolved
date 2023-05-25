@@ -28,7 +28,8 @@
 		"**/*.ts",
 		"**/*.tsx",
 		".next/types/**/*.ts",
-		"app/components/CartPage.tsx"
+		"app/components/CartPage.tsx",
+		"app/api/payment/route.js"
 	],
 	"exclude": ["node_modules"]
 }

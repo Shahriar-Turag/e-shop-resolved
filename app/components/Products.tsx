@@ -16,6 +16,7 @@ interface Props {
 }
 
 const Products = ({ productData, currentUser }: Props) => {
+	// location = window.location;
 	const dispatch = useDispatch();
 
 	return (
@@ -35,10 +36,12 @@ const Products = ({ productData, currentUser }: Props) => {
 								alt='item image'
 							/>
 							<div className='absolute top-3 right-3'>
-								<HeartButton
-									productId={item.id}
-									currentUser={currentUser}
-								/>
+								{location.pathname === '/favoriteProduct' ? (
+									<HeartButton
+										productId={item.id}
+										currentUser={currentUser}
+									/>
+								) : null}
 							</div>
 						</div>
 					</div>
@@ -50,6 +53,7 @@ const Products = ({ productData, currentUser }: Props) => {
 									dispatch(
 										addToCart({
 											id: item.id,
+											userId: item.userId,
 											title: item.title,
 											image: item.image,
 											price: item.price,
@@ -76,6 +80,7 @@ const Products = ({ productData, currentUser }: Props) => {
 									pathname: `/product/${item.id}`,
 									query: {
 										id: item.id,
+										userId: item.userId,
 										title: item.title,
 										image: item.image,
 										price: item.price,

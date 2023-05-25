@@ -1,5 +1,6 @@
 export interface Product {
 	id: number;
+	userId: string;
 	title: string;
 	oldPrice: number;
 	price: number;
@@ -12,6 +13,7 @@ export interface Product {
 
 export interface Item {
 	id: number;
+	userId: string;
 	title: string;
 	oldPrice: number;
 	price: number;
@@ -23,6 +25,7 @@ export interface Item {
 [];
 export interface StoreProduct {
 	id: number;
+	userId: string;
 	title: string;
 	description: string;
 	image: string;

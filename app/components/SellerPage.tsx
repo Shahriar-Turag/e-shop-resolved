@@ -5,21 +5,21 @@ import { SafeUser } from '../types';
 import { MdDeleteForever } from 'react-icons/md';
 import Image from 'next/image';
 import Button from './Button';
+import getOrders from '../actions/getOrders';
 
 interface Props {
 	productData: any;
 	currentUser?: any;
 	usersData: any;
+	ordersData: any;
 }
 
 const SellerPage: React.FC<Props> = ({
 	currentUser,
 	usersData,
 	productData,
+	ordersData,
 }) => {
-	const seller = usersData.filter((user: any) => user.role === 'seller');
-	const user = usersData.filter((user: any) => user.role === 'user');
-
 	const formatDateAndDuration = (createdAt: string) => {
 		const createdAtDate = parseISO(createdAt);
 		const formattedDate = createdAtDate.toLocaleDateString();
@@ -34,6 +34,31 @@ const SellerPage: React.FC<Props> = ({
 	const { formattedDate, duration } = formatDateAndDuration(
 		currentUser?.createdAt
 	);
+
+	const sellerOrders = ordersData.filter(
+		(order: any) => order.userId === currentUser?.id
+	);
+
+	const matchedProducts: any = [];
+
+	ordersData.forEach((order: any) => {
+		productData.forEach((product: any) => {
+			if (order.productIds === product.id) {
+				const matchedProduct = {
+					id: product.id,
+					title: product.title,
+					image: product.image,
+					description: product.description,
+					price: product.price,
+					// Add additional fields as needed
+				};
+
+				matchedProducts.push(matchedProduct);
+			}
+		});
+	});
+
+	console.log(matchedProducts);
 
 	return (
 		<div className='py-6 px-4'>
@@ -142,11 +167,7 @@ const SellerPage: React.FC<Props> = ({
 											<td>
 												<div>
 													<Button
-														// onClick={() =>
-														// 	deleteProducts(
-														// 		item.id
-														// 	)
-														// }
+														onClick={() => {}}
 														icon={MdDeleteForever}
 														label='Delete'
 													/>
@@ -159,6 +180,12 @@ const SellerPage: React.FC<Props> = ({
 						</div>
 					</div>
 				</div>
+			</div>
+			<div className='py-5'>
+				<h1 className='py-5 font-extrabold text-center text-3xl text-blue'>
+					List of all orders {sellerOrders.length}
+					{ordersData.title}
+				</h1>
 			</div>
 		</div>
 	);
