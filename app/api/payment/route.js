@@ -51,14 +51,18 @@ export async function POST(request) {
 	const userId = user?.id;
 	const uniqueProductUserIds = [...new Set(items.map((item) => item.userId))];
 
+	const productID = items.map((item) => item.id);
 
+	const productIds = {
+		[productID]: { quantity: items.map((item) => item.quantity) }
+	}
 
 	const order = await prisma.orders.create({
 		data: {
 			userId,
 			sessionId: session.id,
-			productIds: items.map((item) => item.id),
-			productUserIds: uniqueProductUserIds,
+			productIds: productIds,
+			sellerIds: uniqueProductUserIds,
 			paymentStatus: 'paid',
 		}
 

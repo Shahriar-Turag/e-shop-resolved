@@ -41,7 +41,12 @@ const Products = ({ productData, currentUser }: Props) => {
 										productId={item.id}
 										currentUser={currentUser}
 									/>
-								) : null}
+								) : (
+									<HeartButton
+										productId={item.id}
+										currentUser={currentUser}
+									/>
+								)}
 							</div>
 						</div>
 					</div>

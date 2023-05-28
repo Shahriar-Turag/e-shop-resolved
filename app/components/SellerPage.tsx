@@ -35,31 +35,31 @@ const SellerPage: React.FC<Props> = ({
 		currentUser?.createdAt
 	);
 
-	const sellerOrders = ordersData.filter(
-		(order: any) => order.userId === currentUser?.id
+	const productIDs = ordersData.map((item: any) => item.productIds);
+	console.log('productData: ', productData);
+
+	// const filteredProducts = productData.filter((product: any) =>
+	// 	productIDS.includes(product.id)
+	// );
+
+	// console.log(filteredProducts);
+
+	const data: any = [];
+
+	for (let i = 0; i < productIDs.length; i++) {
+		for (let j = 0; j < productIDs[i].length; j++) {
+			if (data.indexOf(productIDs[i][j]) === -1) {
+				data.push(productIDs[i][j]);
+			}
+		}
+	}
+	console.log(data);
+
+	const filteredProducts = productData.filter((product: any) =>
+		data.includes(product.id)
 	);
 
-	const matchedProducts: any = [];
-
-	ordersData.forEach((order: any) => {
-		productData.forEach((product: any) => {
-			if (order.productIds === product.id) {
-				const matchedProduct = {
-					id: product.id,
-					title: product.title,
-					image: product.image,
-					description: product.description,
-					price: product.price,
-					// Add additional fields as needed
-				};
-
-				matchedProducts.push(matchedProduct);
-			}
-		});
-	});
-
-	console.log(matchedProducts);
-
+	console.log('filter: ', filteredProducts);
 	return (
 		<div className='py-6 px-4'>
 			<div className='text-center pb-6'>
@@ -183,8 +183,7 @@ const SellerPage: React.FC<Props> = ({
 			</div>
 			<div className='py-5'>
 				<h1 className='py-5 font-extrabold text-center text-3xl text-blue'>
-					List of all orders {sellerOrders.length}
-					{ordersData.title}
+					List of all orders ({ordersData.length})
 				</h1>
 			</div>
 		</div>
